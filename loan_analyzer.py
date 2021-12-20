@@ -20,6 +20,7 @@ loan_costs = [500, 600, 200, 1000, 450]
 # Print the number of loans from the list
 # YOUR CODE HERE!
 
+# len() provides the count of the items in the list.
 loan_number = len(loan_costs)
 print(f"There are {loan_number} loans.")
 
@@ -28,6 +29,7 @@ print(f"There are {loan_number} loans.")
 # Print the total value of the loans
 # YOUR CODE HERE!
 
+# sum() provides the sum of the amounts in the list.
 loan_sum = sum(loan_costs)
 print(f"The total value of the loans is ${loan_sum:,.2f}.")
 
@@ -36,6 +38,7 @@ print(f"The total value of the loans is ${loan_sum:,.2f}.")
 # Print the average loan amount
 # YOUR CODE HERE!
 
+# calculates the average loan by dividing the sum by the number of items in the list.
 loan_average = loan_sum/loan_number
 print(f"The average value of the loans is ${loan_average:,.2f}.")
 
@@ -73,6 +76,9 @@ loan = {
 # @TODO: Use get() on the dictionary of additional information to extract the Future Value and Remaining Months on the loan.
 # Print each variable.
 # YOUR CODE HERE!
+
+# use the .get() construction to pull a value from the dictionary using the string key.
+ 
 remaining_months = loan.get("remaining_months")
 future_value = loan.get("future_value")
 
@@ -86,6 +92,7 @@ print(remaining_months, future_value)
 
 # YOUR CODE HERE!
 
+# given the discount rate, use the retreived variables to calculate the present value of the loan.
 discount_rate = 0.20
 
 loan_present_value = future_value / (1+discount_rate/12) ** remaining_months
@@ -98,8 +105,11 @@ print(f"The present value of the loan is ${loan_present_value:,.2f}")
 #    Else, the present value of the loan is less than the loan cost, then print a message that says that the loan is too expensive and not worth the price.
 # YOUR CODE HERE!
 
+
+# return to the dictionary to pull the loan price from the dictionary using .get command.
 loan_price = loan.get("loan_price")
 
+# compare the loan present value to the loan price and display an evaluation.
 if loan_present_value > loan_price:
     print(f"This loan is worth ${loan_present_value:,.2f}, but costs only ${loan_price:,.2f}.  So, the loan is worth at least the cost to buy it.")
 else:
@@ -130,6 +140,7 @@ new_loan = {
 #    The function should return the `present_value` for the loan.
 # YOUR CODE HERE!
 
+# create the present value function
 def calculate_present_value(future_value, remaining_months, annual_discount_rate):
     present_value_formula = future_value / (1+annual_discount_rate/12) ** remaining_months
     return present_value_formula
@@ -137,6 +148,7 @@ def calculate_present_value(future_value, remaining_months, annual_discount_rate
 # @TODO: Use the function to calculate the present value of the new loan given below.
 #    Use an `annual_discount_rate` of 0.2 for this new loan calculation.
 
+# call the present value function using data from the new loan dictionary
 present_value = calculate_present_value(new_loan["future_value"], new_loan["remaining_months"], 0.20)
 
 print(f"The present value of the loan is: ${present_value:,.2f}")
@@ -182,11 +194,14 @@ loans = [
 
 # @TODO: Create an empty list called `inexpensive_loans`
 # YOUR CODE HERE!
+
+# empty list to hold inexpensive loan data
 inexpensive_loans=[]
 
 # @TODO: Loop through all the loans and append any that cost $500 or less to the `inexpensive_loans` list
 # YOUR CODE HERE!
 
+# for loop to pull loans and append loans below $500
 for loan in loans:
     loan_price = loan.get("loan_price")
 
@@ -217,11 +232,15 @@ Output this list of inexpensive loans to a csv file
 header = ["loan_price", "remaining_months", "repayment_interval", "future_value"]
 
 # Set the output file path
+
+# outputs to same directory and provides file name in csv format.
 output_path = Path("inexpensive_loans.csv")
 
 # @TODO: Use the csv library and `csv.writer` to write the header row
 # and each row of `loan.values()` from the `inexpensive_loans` list.
 # YOUR CODE HERE!
+
+# opens output to write, writes the header followed by the remaining rows
 with open(output_path, 'w') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(header)
